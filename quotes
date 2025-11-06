@@ -1,0 +1,9 @@
+# Motivational quotes (your custom list)
+QUOTES = [
+    "Act like the person you want to become. And do it now",
+    "Accept what is, let go of what was, and have faith in what it will be",
+    "If it makes you happy, then it's not a waste of time.",
+    "Consistency looks like nothing is happening until everything changes",
+    "What's meant to be will always find you.",
+    "Just because it's hard, doesn't mean it's impossible."
+]
