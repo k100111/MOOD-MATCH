@@ -1,0 +1,2 @@
+# Set overall background color to baby blue
+root.configure(bg="#ADD8E6")  # baby blue hex
