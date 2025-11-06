@@ -1,0 +1,4 @@
+# Mood input
+tk.Label(root, text="Mood (≤3 words):", bg="#ADD8E6", fg="black").grid(row=1, column=0, sticky="w")
+mood_entry = tk.Entry(root, width=30, bg="#BFEFFF", fg="black")  # lighter baby blue entry box
+mood_entry.grid(row=1, column=1)
