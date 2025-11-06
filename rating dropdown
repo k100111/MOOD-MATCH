@@ -1,0 +1,6 @@
+# Rating dropdown
+tk.Label(root, text="Day Rating (1 = worst, 10 = best):", bg="#ADD8E6", fg="black").grid(row=2, column=0, sticky="w")
+rating_var = tk.StringVar(value="5")  # default value
+rating_dropdown = tk.OptionMenu(root, rating_var, *[str(i) for i in range(1, 11)])
+rating_dropdown.config(bg="#BFEFFF", fg="black")
+rating_dropdown.grid(row=2, column=1)
