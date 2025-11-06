@@ -1,0 +1,4 @@
+# Comment input
+tk.Label(root, text="Comment:", bg="#ADD8E6", fg="black").grid(row=3, column=0, sticky="w")
+comment_entry = tk.Entry(root, width=30, bg="#BFEFFF", fg="black")
+comment_entry.grid(row=3, column=1)
