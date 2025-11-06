@@ -1,0 +1,3 @@
+# --- Tkinter Interface ---
+root = tk.Tk()
+root.title("Mood Match 😊📝")
