@@ -1,0 +1,111 @@
+import tkinter as tk
+from tkinter import messagebox
+import random
+
+# Motivational quotes (your custom list)
+QUOTES = [
+    "Act like the person you want to become. And do it now",
+    "Accept what is, let go of what was, and have faith in what it will be",
+    "If it makes you happy, then it's not a waste of time.",
+    "Consistency looks like nothing is happening until everything changes",
+    "What's meant to be will always find you.",
+    "Just because it's hard, doesn't mean it's impossible."
+]
+
+def save_entry():
+    date = date_entry.get()
+    mood = mood_entry.get()
+    rating = rating_var.get()
+    comment = comment_entry.get()
+
+    # Validate rating
+    try:
+        rating = int(rating)
+        if rating < 1 or rating > 10:
+            raise ValueError
+    except ValueError:
+        messagebox.showerror("Invalid Input", "Rating must be a number between 1 and 10.")
+        return
+
+    # Save to file
+    with open("mood_log.txt", "a") as file:
+        file.write(f"{date}|{mood}|{rating}|{comment}\n")
+
+    messagebox.showinfo("Saved", "✅ Your mood has been recorded!")
+
+    # Yes/No prompt for motivational quote
+    want_quote = messagebox.askyesno("Motivational Quote", "Would you like a motivational quote?")
+    if want_quote:
+        messagebox.showinfo("Motivational Quote", random.choice(QUOTES))
+
+    # Show past entries
+    show_entries()
+
+def show_entries():
+    try:
+        with open("mood_log.txt", "r") as file:
+            entries = file.readlines()
+        output_text.delete("1.0", tk.END)
+        output_text.insert(tk.END, f"{'Date':<12} | {'Mood (≤3 words)':<20} | {'Rating':<6} | Comment\n")
+        output_text.insert(tk.END, "-" * 70 + "\n")
+        for line in entries:
+            date, mood, rating, comment = line.strip().split("|")
+            output_text.insert(tk.END, f"{date:<12} | {mood:<20} | {rating:<6} | {comment}\n")
+    except FileNotFoundError:
+        output_text.delete("1.0", tk.END)
+        output_text.insert(tk.END, "No past entries found yet.")
+
+def clear_entries():
+    confirm = messagebox.askyesno("Confirm", "Are you sure you want to clear all past entries?")
+    if confirm:
+        open("mood_log.txt", "w").close()
+        output_text.delete("1.0", tk.END)
+        output_text.insert(tk.END, "All entries have been cleared.")
+        messagebox.showinfo("Cleared", "🗑️ All past entries have been deleted.")
+
+def show_quote():
+    """Display a random motivational quote"""
+    messagebox.showinfo("Motivational Quote", random.choice(QUOTES))
+
+# --- Tkinter Interface ---
+root = tk.Tk()
+root.title("Mood Match 😊📝")
+
+# Set overall background color to baby blue
+root.configure(bg="#ADD8E6")  # baby blue hex
+
+# Date picker
+tk.Label(root, text="Date:", bg="#ADD8E6", fg="black").grid(row=0, column=0, sticky="w")
+date_entry = tk.Entry(root, width=27, background="#ADD8E6", foreground="black", borderwidth=2)
+date_entry.grid(row=0, column=1)
+
+# Mood input
+tk.Label(root, text="Mood (≤3 words):", bg="#ADD8E6", fg="black").grid(row=1, column=0, sticky="w")
+mood_entry = tk.Entry(root, width=30, bg="#BFEFFF", fg="black")  # lighter baby blue entry box
+mood_entry.grid(row=1, column=1)
+
+# Rating dropdown
+tk.Label(root, text="Day Rating (1 = worst, 10 = best):", bg="#ADD8E6", fg="black").grid(row=2, column=0, sticky="w")
+rating_var = tk.StringVar(value="5")  # default value
+rating_dropdown = tk.OptionMenu(root, rating_var, *[str(i) for i in range(1, 11)])
+rating_dropdown.config(bg="#BFEFFF", fg="black")
+rating_dropdown.grid(row=2, column=1)
+
+# Comment input
+tk.Label(root, text="Comment:", bg="#ADD8E6", fg="black").grid(row=3, column=0, sticky="w")
+comment_entry = tk.Entry(root, width=30, bg="#BFEFFF", fg="black")
+comment_entry.grid(row=3, column=1)
+
+# Motivational quote button (added right after comment input)
+tk.Button(root, text="Get Motivational Quote", command=show_quote, bg="#87CEFA", fg="black").grid(row=4, columnspan=2, pady=5)
+
+# Save and Clear buttons
+tk.Button(root, text="Save Entry", command=save_entry, bg="#1E90FF", fg="black").grid(row=5, column=0, pady=10)
+tk.Button(root, text="Clear All Entries", command=clear_entries, bg="#1E90FF", fg="black").grid(row=5, column=1, pady=10)
+
+# Output area
+output_text = tk.Text(root, width=80, height=15, bg="#E0FFFF", fg="black")
+output_text.grid(row=6, columnspan=2, pady=10)
+
+# Run the app
+root.mainloop()
