@@ -1,0 +1,2 @@
+# Motivational quote button (added right after comment input)
+tk.Button(root, text="Get Motivational Quote", command=show_quote, bg="#87CEFA", fg="black").grid(row=4, columnspan=2, pady=5)
