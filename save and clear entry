@@ -1,0 +1,3 @@
+# Save and Clear buttons
+tk.Button(root, text="Save Entry", command=save_entry, bg="#1E90FF", fg="black").grid(row=5, column=0, pady=10)
+tk.Button(root, text="Clear All Entries", command=clear_entries, bg="#1E90FF", fg="black").grid(row=5, column=1, pady=10)
