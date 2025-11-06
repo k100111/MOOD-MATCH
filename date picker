@@ -1,0 +1,4 @@
+# Date picker
+tk.Label(root, text="Date:", bg="#ADD8E6", fg="black").grid(row=0, column=0, sticky="w")
+date_entry = tk.Entry(root, width=27, background="#ADD8E6", foreground="black", borderwidth=2)
+date_entry.grid(row=0, column=1)
